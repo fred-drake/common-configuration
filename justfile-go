@@ -25,7 +25,7 @@ build-prod:
 
 # Run tests with coverage
 test:
-    @echo "Running tests with coverage..."
+    @echo "Running unit tests with coverage..."
     go test -v -race -coverprofile=coverage.out ./cmd/... ./internal/...
     go tool cover -func=coverage.out | grep total | awk '{print "Total coverage: " $3}'
 
