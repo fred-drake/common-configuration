@@ -9,7 +9,7 @@ This repository contains common configuration files that can be shared across mu
 ## Contents
 
 - **`justfile-go`** - Just command runner configuration for Go projects with common build, test, lint, and format commands
-- **`shell.nix`** - Nix shell environment with development tools (Go, Node.js, linting tools, etc.)
+- **`justfile-nix`** - Just command runner configuration for Nix flake projects with formatting, linting, and deployment commands
 
 ## Usage
 
@@ -76,6 +76,36 @@ Once imported, you'll have access to these commands:
 - `just vulncheck` - Check for security vulnerabilities
 - `just check` - Run all checks (format-check, test, lint, vulncheck)
 - `just clean` - Clean build artifacts and cache
+
+### Nix Projects with Justfile
+
+For Nix flake projects, you can use the `justfile-nix` configuration by importing it.
+
+#### Example Setup
+
+Create a `justfile` in your project root:
+
+```justfile
+# Import common Nix commands
+import "common-config/justfile-nix"
+
+# Add project-specific commands here
+build:
+    nix build .#
+
+dev:
+    nix develop
+```
+
+#### Available Commands
+
+Once imported, you'll have access to these commands:
+
+- `just format` - Format all .nix files using alejandra
+- `just lint` - Run statix linting checks
+- `just update` - Update input definitions from remote resources
+- `just update-secrets` - Update the secrets flake
+- `just colmena HOST` - Run colmena remote switch on given host (for NixOS deployment)
 
 ## Updating the Submodule
 
