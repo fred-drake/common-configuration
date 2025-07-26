@@ -1,3 +1,5 @@
+# Default build path - projects should override this variable before importing
+
 # Check that required tools are available
 check-tools:
     @echo "Checking required tools..."
@@ -14,14 +16,14 @@ run: build
 build:
     @echo "Building {{APP_NAME}}..."
     go mod tidy
-    go build -o {{APP_NAME}} -ldflags="-s -w" .
+    go build -o {{APP_NAME}} -ldflags="-s -w" {{APP_BUILD_PATH}}
 
 # Build for production with optimizations
 build-prod:
     @echo "Building production binary..."
     CGO_ENABLED=0 go build -o {{APP_NAME}} \
         -ldflags="-s -w -X main.version={{`git describe --tags --always --dirty`}}" \
-        -trimpath .
+        -trimpath {{APP_BUILD_PATH}}
 
 # Run tests with coverage
 test:
