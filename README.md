@@ -37,9 +37,10 @@ Create a `justfile` in your project root:
 # Set project-specific variables
 APP_NAME := "my-awesome-app"
 APP_MAIN_GO_FILE := "cmd/server/main.go"
+APP_BUILD_PATH := "./cmd/server"
 
 # Import common Go commands
-import "config/justfile-go"
+import "common-config/justfile-go"
 
 # Add project-specific commands here
 deploy:
@@ -57,7 +58,24 @@ setup:
 The `justfile-go` configuration expects these variables to be defined:
 
 - `APP_NAME` - The name of your application binary
-- `APP_MAIN_GO_FILE` - Path to your main Go file (e.g., `main.go`, `cmd/server/main.go`)
+- `APP_MAIN_GO_FILE` - Path to your main Go file for the `run` command (e.g., `main.go`, `./cmd/server/main.go`)
+- `APP_BUILD_PATH` - Path to the directory containing your main Go package for building (e.g., `.` for root, `./cmd/server` for subdirectories)
+
+**Common Project Structures:**
+
+```bash
+# Simple project with main.go in root
+APP_MAIN_GO_FILE := "main.go"
+APP_BUILD_PATH := "."
+
+# Project with main.go in cmd/app directory
+APP_MAIN_GO_FILE := "./cmd/app/main.go"
+APP_BUILD_PATH := "./cmd/app"
+
+# Multiple binaries - define for each
+APP_MAIN_GO_FILE := "./cmd/server/main.go"
+APP_BUILD_PATH := "./cmd/server"
+```
 
 #### Available Commands
 
